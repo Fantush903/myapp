@@ -1,0 +1,40 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: rgba(255,255,255,0.15); }
+
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.purple::before { background: var(--accent); }
+.green::before  { background: var(--accent2); }
+.amber::before  { background: var(--warn); }
+.red::before    { background: var(--danger); }
+
+.label {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.value {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+}
+
+.change { font-size: 12px; }
+.up   { color: var(--accent2); }
+.down { color: var(--danger); }

@@ -1,0 +1,5 @@
+# Never upload these to internet
+.env.local
+node_modules/
+.next/
+myapp-db.json
