@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — MyApp</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d14;
+    --card: #13131e;
+    --border: rgba(255,255,255,0.06);
+    --accent: #6c63ff;
+    --accent2: #a78bfa;
+    --white: #f0efff;
+    --gray: #6b6b8a;
+    --success: #22c55e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--white); font-family: 'Space Grotesk', sans-serif; min-height: 100vh; }
+
+  /* GRID BG */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(108,99,255,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(108,99,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* NAV */
+  nav {
+    padding: 24px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0;
+    background: rgba(13,13,20,0.8);
+    backdrop-filter: blur(20px);
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem; font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--gray); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    background: var(--accent);
+    color: var(--white) !important;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+  }
+
+  /* HERO */
+  .contact-hero {
+    padding: 80px 60px 60px;
+    text-align: center;
+    position: relative;
+  }
+  .contact-hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(108,99,255,0.12), transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(108,99,255,0.1);
+    border: 1px solid rgba(108,99,255,0.2);
+    color: var(--accent2);
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-bottom: 28px;
+  }
+  .contact-badge::before { content: '●'; font-size: 0.5rem; color: var(--success); }
+
+  .contact-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    margin-bottom: 20px;
+  }
+  .contact-title .highlight {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .contact-subtitle {
+    color: var(--gray);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* MAIN GRID */
+  .contact-main {
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* INFO CARDS */
+  .info-cards { display: flex; flex-direction: column; gap: 16px; }
+
+  .info-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .info-card:hover { border-color: rgba(108,99,255,0.3); transform: translateX(4px); }
+
+  .info-icon {
+    width: 48px; height: 48px;
+    background: rgba(108,99,255,0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+
+  .info-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+
+  .info-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+
+  .info-desc {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* SOCIAL */
+  .social-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .social-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .socials { display: flex; gap: 12px; flex-wrap: wrap; }
+  .social-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .social-btn:hover { background: rgba(108,99,255,0.15); border-color: rgba(108,99,255,0.4); }
+
+  /* FORM */
+  .contact-form-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px;
+  }
+
+  .form-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .form-subtitle { color: var(--gray); font-size: 0.9rem; margin-bottom: 36px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { margin-bottom: 20px; }
+  .form-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 8px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(108,99,255,0.1);
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(107,107,138,0.6); }
+  .form-textarea { resize: none; height: 140px; }
+  .form-select option { background: var(--card); }
+
+  .form-submit {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-submit:hover { background: #7c73ff; transform: translateY(-2px); }
+  .form-submit:active { transform: translateY(0); }
+
+  .form-success {
+    display: none;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    color: var(--success);
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.9rem;
+  }
+
+  /* FAQ */
+  .faq-section {
+    padding: 80px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .faq-header { text-align: center; margin-bottom: 48px; }
+  .faq-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .faq-subtitle { color: var(--gray); }
+
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .faq-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: border-color 0.3s;
+  }
+  .faq-item:hover { border-color: rgba(108,99,255,0.3); }
+  .faq-q {
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .faq-q::before {
+    content: 'Q';
+    background: rgba(108,99,255,0.15);
+    color: var(--accent2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .faq-a { color: var(--gray); font-size: 0.9rem; line-height: 1.6; padding-left: 32px; }
+
+  footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; }
+  .footer-logo span { color: var(--accent); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-copy { color: var(--gray); font-size: 0.8rem; }
+
+  .slide-in {
+    opacity: 0; transform: translateY(24px);
+    transition: all 0.7s ease;
+  }
+  .slide-in.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .contact-hero, .contact-main, .faq-section { padding: 60px 24px; }
+    .contact-main, .faq-grid, .form-row { grid-template-columns: 1fr; }
+    .contact-form-wrap { padding: 28px; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">My<span>App</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="login.html" class="nav-cta">Sign In</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="contact-hero">
+  <div class="contact-badge">We reply within 24 hours</div>
+  <h1 class="contact-title">Get in <span class="highlight">Touch</span></h1>
+  <p class="contact-subtitle">Have a question, feedback, or just want to say hello? We'd love to hear from you.</p>
+</section>
+
+<!-- MAIN -->
+<div class="contact-main">
+  <!-- Info -->
+  <div>
+    <div class="info-cards slide-in">
+      <div class="info-card">
+        <div class="info-icon">📧</div>
+        <div class="info-label">Email Us</div>
+        <div class="info-value">hello@myapp.com</div>
+        <div class="info-desc">For general inquiries and support</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">💬</div>
+        <div class="info-label">Live Chat</div>
+        <div class="info-value">Available 9am – 6pm IST</div>
+        <div class="info-desc">Monday through Friday, excluding holidays</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🏢</div>
+        <div class="info-label">Office</div>
+        <div class="info-value">Mumbai, India</div>
+        <div class="info-desc">Serving users across 50+ countries</div>
+      </div>
+    </div>
+    <div class="social-card slide-in" style="margin-top:16px">
+      <div class="social-title">Follow Us</div>
+      <div class="socials">
+        <a class="social-btn" href="#">𝕏 Twitter</a>
+        <a class="social-btn" href="#">in LinkedIn</a>
+        <a class="social-btn" href="#">⬡ GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="contact-form-wrap slide-in">
+    <h2 class="form-title">Send a Message</h2>
+    <p class="form-subtitle">Fill out the form and we'll get back to you as soon as possible.</p>
+    <form id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input class="form-input" type="text" placeholder="John" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-input" type="text" placeholder="Smith" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input class="form-input" type="email" placeholder="john@example.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <select class="form-select">
+          <option value="">Select a topic...</option>
+          <option>General Inquiry</option>
+          <option>Technical Support</option>
+          <option>Account Issues</option>
+          <option>Feature Request</option>
+          <option>Partnership</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell us how we can help you..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message →</button>
+      <div class="form-success" id="formSuccess">✓ Message sent! We'll get back to you within 24 hours.</div>
+    </form>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-header slide-in">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+    <p class="faq-subtitle">Quick answers to common questions</p>
+  </div>
+  <div class="faq-grid slide-in">
+    <div class="faq-item">
+      <div class="faq-q">How secure is MyApp?</div>
+      <div class="faq-a">We use BCrypt encryption for passwords and JWT tokens for authentication. Your data is protected at every layer with enterprise-grade security.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is MyApp free to use?</div>
+      <div class="faq-a">Yes! MyApp offers a free tier with all core features. Premium plans are available for power users who need advanced capabilities.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I reset my password?</div>
+      <div class="faq-a">Visit the login page and click "Reset Password". Enter your email and we'll send you a secure reset code instantly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What technology powers MyApp?</div>
+      <div class="faq-a">Our backend is built on Spring Boot with MySQL database. The frontend uses Next.js, deployed on Vercel with the API on Railway.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">My<span>App</span></div>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="login.html">Sign In</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 MyApp. All rights reserved.</div>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Message Sent ✓';
+      document.getElementById('formSuccess').style.display = 'block';
+      this.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+        document.getElementById('formSuccess').style.display = 'none';
+      }, 4000);
+    }, 1500);
+  });
+
+  const obs = new IntersectionObserver(e => e.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); }), { threshold: 0.1 });
+  document.querySelectorAll('.slide-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
