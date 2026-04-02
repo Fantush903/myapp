@@ -36,6 +36,7 @@
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0;
     background: rgba(13,13,20,0.8);
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     z-index: 100;
   }
@@ -371,7 +372,7 @@
       <div class="info-card">
         <div class="info-icon">📧</div>
         <div class="info-label">Email Us</div>
-        <div class="info-value">hello@myapp.com</div>
+        <div class="info-value">fantusharyanfkb@gmail.com</div>
         <div class="info-desc">For general inquiries and support</div>
       </div>
       <div class="info-card">
@@ -405,20 +406,22 @@
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">First Name</label>
-          <input class="form-input" type="text" placeholder="John" required>
+          <input class="form-input" type="text" placeholder="Fantush" required>
         </div>
         <div class="form-group">
           <label class="form-label">Last Name</label>
-          <input class="form-input" type="text" placeholder="Smith" required>
+          <input class="form-input" type="text" placeholder="Kumar" required>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">Email Address</label>
-        <input class="form-input" type="email" placeholder="john@example.com" required>
+        <input class="form-input" type="email" placeholder="fantusharyanfkb@gmail.com" required>
       </div>
       <div class="form-group">
         <label class="form-label">Subject</label>
-        <select class="form-select">
+
+        <select class="form-select" name="subject" aria-label="Subject">
+
           <option value="">Select a topic...</option>
           <option>General Inquiry</option>
           <option>Technical Support</option>
